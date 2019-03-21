@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn
+} from "typeorm";
 import { Customer } from "./Customer";
 import { Movie } from "./Movie";
 import { IsCurrency, IsDefined } from "class-validator";
@@ -14,8 +21,11 @@ export class Rental {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column("timestamptz", { default: () => "CURRENT_TIMESTAMP" })
-  dateOut: Date;
+  @CreateDateColumn()
+  createdDate: Date;
+
+  @UpdateDateColumn()
+  updatedDate: Date;
 
   @Column()
   @IsDefined()

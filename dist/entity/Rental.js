@@ -25,9 +25,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Rental.prototype, "id", void 0);
 __decorate([
-    typeorm_1.Column("timestamptz", { default: () => "CURRENT_TIMESTAMP" }),
+    typeorm_1.CreateDateColumn(),
     __metadata("design:type", Date)
-], Rental.prototype, "dateOut", void 0);
+], Rental.prototype, "createdDate", void 0);
+__decorate([
+    typeorm_1.UpdateDateColumn(),
+    __metadata("design:type", Date)
+], Rental.prototype, "updatedDate", void 0);
 __decorate([
     typeorm_1.Column(),
     class_validator_1.IsDefined(),

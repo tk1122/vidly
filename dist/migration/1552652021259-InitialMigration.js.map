@@ -1,0 +1,1 @@
+{"version":3,"file":"1552652021259-InitialMigration.js","sourceRoot":"","sources":["../../src/migration/1552652021259-InitialMigration.ts"],"names":[],"mappings":";;;;;;;;;;AAEA,MAAa,6BAA6B;IAEzB,EAAE,CAAC,WAAwB;;YACpC,MAAM,WAAW,CAAC,KAAK,CAAC,qJAAqJ,CAAC,CAAC;QACnL,CAAC;KAAA;IAEY,IAAI,CAAC,WAAwB;;YACtC,MAAM,WAAW,CAAC,KAAK,CAAC,oBAAoB,CAAC,CAAC;QAClD,CAAC;KAAA;CAEJ;AAVD,sEAUC"}

@@ -104,13 +104,15 @@ __decorate([
 ], CustomerController.prototype, "put", null);
 __decorate([
     routing_controllers_1.Delete("/:id"),
+    routing_controllers_1.Authorized("ADMIN"),
     __param(0, routing_controllers_1.Param("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "delete", null);
 CustomerController = __decorate([
-    routing_controllers_1.JsonController("/customers")
+    routing_controllers_1.JsonController("/customers"),
+    routing_controllers_1.Authorized()
 ], CustomerController);
 exports.CustomerController = CustomerController;
 //# sourceMappingURL=CustomerController.js.map

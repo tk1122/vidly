@@ -104,13 +104,15 @@ __decorate([
 ], GenreController.prototype, "put", null);
 __decorate([
     routing_controllers_1.Delete("/:id"),
+    routing_controllers_1.Authorized("ADMIN"),
     __param(0, routing_controllers_1.Param("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], GenreController.prototype, "delete", null);
 GenreController = __decorate([
-    routing_controllers_1.JsonController("/genres")
+    routing_controllers_1.JsonController("/genres"),
+    routing_controllers_1.Authorized()
 ], GenreController);
 exports.GenreController = GenreController;
 //# sourceMappingURL=GenreController.js.map

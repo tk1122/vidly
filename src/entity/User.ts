@@ -4,13 +4,16 @@ import {
   IsNotEmpty,
   Length,
   IsEmail,
-  IsAlphanumeric
+  IsAlphanumeric,
+  IsDefined,
+  IsBoolean,
+  IsEmpty
 } from "class-validator";
 
 @Entity()
 @Unique(["email"])
 export class User {
-  constructor(name: string, email: string, password: string) {
+  constructor(email: string, password: string, name?: string) {
     this.name = name;
     this.email = email;
     this.password = password;
@@ -23,16 +26,19 @@ export class User {
   @IsString()
   @IsNotEmpty()
   @Length(5, 50)
-  name: string;
+  name?: string;
 
   @Column()
   @IsEmail()
-  @IsNotEmpty()
+  @IsDefined()
   email: string;
 
-  @Column({ length: 50 })
-  @IsString()
+  @Column({ length: 100 })
+  @IsDefined()
   @IsAlphanumeric()
   @Length(8, 50)
   password: string;
+
+  @Column({ default: false })
+  isAdmin: boolean;
 }

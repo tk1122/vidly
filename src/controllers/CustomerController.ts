@@ -7,7 +7,8 @@ import {
   Post,
   Body,
   Put,
-  Delete
+  Delete,
+  Authorized
 } from "routing-controllers";
 import { getConnection } from "typeorm";
 import { Customer } from "../entity/Customer";
@@ -15,6 +16,7 @@ import { validate } from "class-validator";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 @JsonController("/customers")
+@Authorized()
 export class CustomerController {
   private readonly _customerRepo = getConnection().getRepository(Customer);
 
@@ -58,6 +60,7 @@ export class CustomerController {
   }
 
   @Delete("/:id")
+  @Authorized("ADMIN")
   async delete(@Param("id") id: number) {
     const genre = await this._customerRepo.findOne({ id: id });
     if (!genre) throw new HttpError(404, "Customer not found");

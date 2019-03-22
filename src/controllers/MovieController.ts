@@ -7,7 +7,8 @@ import {
   Param,
   Put,
   Delete,
-  HttpCode
+  HttpCode,
+  Authorized
 } from "routing-controllers";
 import { Movie } from "../entity/Movie";
 import { getConnection } from "typeorm";
@@ -20,6 +21,7 @@ interface IMovieBody extends Movie {
 }
 
 @JsonController("/movies")
+@Authorized()
 export class MovieController {
   private readonly _genreRepo = getConnection().getRepository(Genre);
   private readonly _movieRepo = getConnection().getRepository(Movie);
@@ -75,6 +77,7 @@ export class MovieController {
   }
 
   @Delete("/:id")
+  @Authorized("ADMIN")
   async delete(@Param("id") id: number) {
     const movie = await this._movieRepo.findOne({ id: id });
     if (!movie) throw new HttpError(404, "Movie not found");

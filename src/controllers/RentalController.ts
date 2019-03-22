@@ -7,7 +7,8 @@ import {
   Param,
   Put,
   Delete,
-  HttpCode
+  HttpCode,
+  Authorized
 } from "routing-controllers";
 import { getConnection } from "typeorm";
 import { Rental } from "../entity/Rental";
@@ -20,6 +21,7 @@ interface IRentalBody extends Rental {
 }
 
 @JsonController("/rentals")
+@Authorized()
 export class RentalController {
   private readonly _rentalRepo = getConnection().getRepository(Rental);
   private readonly _customerRepo = getConnection().getRepository(Customer);
@@ -96,6 +98,7 @@ export class RentalController {
   }
 
   @Delete("/:id")
+  @Authorized("ADMIN")
   async delete(@Param("id") id: number) {
     const rental = await this._rentalRepo.findOne({ id: id });
     if (!rental) throw new HttpError(404, "Rental not found");

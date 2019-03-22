@@ -1,12 +1,10 @@
 import "reflect-metadata";
-import { createConnection } from "typeorm";
+import { createConnection, getConnection } from "typeorm";
 import express from "express";
 import { json, urlencoded } from "body-parser";
-import { useExpressServer } from "routing-controllers";
-import { GenreController } from "./controllers/GenreController";
-import { CustomerController } from "./controllers/CustomerController";
-import { MovieController } from "./controllers/MovieController";
-import { RentalController } from "./controllers/RentalController";
+import { useExpressServer, Action } from "routing-controllers";
+import { verify } from "jsonwebtoken";
+import { User } from "./entity/User";
 
 const app = express();
 
@@ -18,12 +16,35 @@ createConnection()
     useExpressServer(app, {
       development: false,
       routePrefix: "/api",
-      controllers: [
-        GenreController,
-        MovieController,
-        CustomerController,
-        RentalController
-      ]
+      controllers: [__dirname + "/controllers/**/*.js"],
+      authorizationChecker: async (action: Action, roles: string[]) => {
+        const token: string = action.request.headers["x-auth-token"] || "";
+        if (!token) return false;
+
+        try {
+          const user = (await verify(
+            token,
+            process.env.JWT_PRIVATE_KEY!
+          )) as User;
+
+          if (roles.includes("ADMIN")) {
+            return user.isAdmin!;
+          }
+
+          return true;
+        } catch {
+          return false;
+        }
+      },
+      currentUserChecker: async (action: Action) => {
+        const token: string = action.request.headers["x-auth-token"] || "";
+
+        try {
+          return verify(token, process.env.JWT_PRIVATE_KEY!);
+        } catch {
+          return null;
+        }
+      }
     });
   })
   .catch(error => console.log(error));

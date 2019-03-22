@@ -140,13 +140,15 @@ __decorate([
 ], RentalController.prototype, "put", null);
 __decorate([
     routing_controllers_1.Delete("/:id"),
+    routing_controllers_1.Authorized("ADMIN"),
     __param(0, routing_controllers_1.Param("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], RentalController.prototype, "delete", null);
 RentalController = __decorate([
-    routing_controllers_1.JsonController("/rentals")
+    routing_controllers_1.JsonController("/rentals"),
+    routing_controllers_1.Authorized()
 ], RentalController);
 exports.RentalController = RentalController;
 //# sourceMappingURL=RentalController.js.map

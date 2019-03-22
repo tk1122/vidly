@@ -7,7 +7,8 @@ import {
   Delete,
   JsonController,
   HttpError,
-  HttpCode
+  HttpCode,
+  Authorized
 } from "routing-controllers";
 import { getConnection } from "typeorm";
 import { validate } from "class-validator";
@@ -15,6 +16,7 @@ import { Genre } from "../entity/Genre";
 import { getErrorMessage } from "../utils/getErrorMessage";
 
 @JsonController("/genres")
+@Authorized()
 export class GenreController {
   private readonly _genreRepo = getConnection().getRepository(Genre);
 
@@ -59,6 +61,7 @@ export class GenreController {
   }
 
   @Delete("/:id")
+  @Authorized("ADMIN")
   async delete(@Param("id") id: number) {
     const genre = await this._genreRepo.findOne({ id: id });
     if (!genre) throw new HttpError(404, "Genre not found");

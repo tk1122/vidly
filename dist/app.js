@@ -16,10 +16,7 @@ const typeorm_1 = require("typeorm");
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = require("body-parser");
 const routing_controllers_1 = require("routing-controllers");
-const GenreController_1 = require("./controllers/GenreController");
-const CustomerController_1 = require("./controllers/CustomerController");
-const MovieController_1 = require("./controllers/MovieController");
-const RentalController_1 = require("./controllers/RentalController");
+const jsonwebtoken_1 = require("jsonwebtoken");
 const app = express_1.default();
 app.use(body_parser_1.json());
 app.use(body_parser_1.urlencoded({ extended: true }));
@@ -28,12 +25,31 @@ typeorm_1.createConnection()
     routing_controllers_1.useExpressServer(app, {
         development: false,
         routePrefix: "/api",
-        controllers: [
-            GenreController_1.GenreController,
-            MovieController_1.MovieController,
-            CustomerController_1.CustomerController,
-            RentalController_1.RentalController
-        ]
+        controllers: [__dirname + "/controllers/**/*.js"],
+        authorizationChecker: (action, roles) => __awaiter(this, void 0, void 0, function* () {
+            const token = action.request.headers["x-auth-token"] || "";
+            if (!token)
+                return false;
+            try {
+                const user = (yield jsonwebtoken_1.verify(token, process.env.JWT_PRIVATE_KEY));
+                if (roles.includes("ADMIN")) {
+                    return user.isAdmin;
+                }
+                return true;
+            }
+            catch (_a) {
+                return false;
+            }
+        }),
+        currentUserChecker: (action) => __awaiter(this, void 0, void 0, function* () {
+            const token = action.request.headers["x-auth-token"] || "";
+            try {
+                return jsonwebtoken_1.verify(token, process.env.JWT_PRIVATE_KEY);
+            }
+            catch (_b) {
+                return null;
+            }
+        })
     });
 }))
     .catch(error => console.log(error));

@@ -113,13 +113,15 @@ __decorate([
 ], MovieController.prototype, "put", null);
 __decorate([
     routing_controllers_1.Delete("/:id"),
+    routing_controllers_1.Authorized("ADMIN"),
     __param(0, routing_controllers_1.Param("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], MovieController.prototype, "delete", null);
 MovieController = __decorate([
-    routing_controllers_1.JsonController("/movies")
+    routing_controllers_1.JsonController("/movies"),
+    routing_controllers_1.Authorized()
 ], MovieController);
 exports.MovieController = MovieController;
 //# sourceMappingURL=MovieController.js.map

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
 const class_validator_1 = require("class-validator");
 let User = class User {
-    constructor(name, email, password) {
+    constructor(email, password, name) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -32,16 +32,20 @@ __decorate([
 __decorate([
     typeorm_1.Column(),
     class_validator_1.IsEmail(),
-    class_validator_1.IsNotEmpty(),
+    class_validator_1.IsDefined(),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    typeorm_1.Column({ length: 50 }),
-    class_validator_1.IsString(),
+    typeorm_1.Column({ length: 100 }),
+    class_validator_1.IsDefined(),
     class_validator_1.IsAlphanumeric(),
     class_validator_1.Length(8, 50),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    typeorm_1.Column({ default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "isAdmin", void 0);
 User = __decorate([
     typeorm_1.Entity(),
     typeorm_1.Unique(["email"]),

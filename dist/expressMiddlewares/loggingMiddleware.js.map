@@ -1,0 +1,1 @@
+{"version":3,"file":"loggingMiddleware.js","sourceRoot":"","sources":["../../src/expressMiddlewares/loggingMiddleware.ts"],"names":[],"mappings":";;AAAA,qDAAyC;AACzC,qCAAqC;AAExB,QAAA,iBAAiB,GAAG,GAAG,EAAE;IACpC,OAAO,wBAAM,CAAC;QACZ,UAAU,EAAE,CAAC,IAAI,oBAAU,CAAC,IAAI,CAAC,EAAE,QAAQ,EAAE,cAAc,EAAE,CAAC,CAAC;KAChE,CAAC,CAAC;AACL,CAAC,CAAC"}

@@ -19,9 +19,13 @@ const routing_controllers_1 = require("routing-controllers");
 const authChecker_1 = require("./utils/authChecker");
 const errorHandler_1 = require("./expressMiddlewares/errorHandler");
 const loggingMiddleware_1 = require("./expressMiddlewares/loggingMiddleware");
+const compression_1 = __importDefault(require("compression"));
+const helmet_1 = __importDefault(require("helmet"));
 const app = express_1.default();
 app.use(body_parser_1.json());
 app.use(body_parser_1.urlencoded({ extended: true }));
+app.use(compression_1.default());
+app.use(helmet_1.default());
 app.use(loggingMiddleware_1.loggingMiddleware());
 typeorm_1.createConnection().then(() => __awaiter(this, void 0, void 0, function* () {
     routing_controllers_1.useExpressServer(app, {

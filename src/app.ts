@@ -6,11 +6,15 @@ import { useExpressServer } from "routing-controllers";
 import { authorizationChecker, currentUserChecker } from "./utils/authChecker";
 import { errorHandler } from "./expressMiddlewares/errorHandler";
 import { loggingMiddleware } from "./expressMiddlewares/loggingMiddleware";
+import compression from "compression";
+import helmet from "helmet";
 
 const app = express();
 
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(compression());
+app.use(helmet());
 
 app.use(loggingMiddleware());
 

@@ -3,7 +3,10 @@ require("dotenv").config();
 if (process.env.NODE_ENV === "production") {
   module.exports = {
     type: "postgres",
-    url: process.env.DATABASE_URL
+    url: process.env.DATABASE_URL,
+    entities: ["dist/entity/**/*.js"],
+    migrations: ["dist/migration/**/*.js"],
+    subscribers: ["dist/subscriber/**/*.js"]
   };
 } else {
   module.exports = {

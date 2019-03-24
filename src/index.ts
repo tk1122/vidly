@@ -4,7 +4,7 @@ import { errorLogger } from "./utils/errorLogger";
 
 dotenv.config();
 
-const PORT = process.env.SERVER_PORT;
+const PORT = process.env.PORT;
 
 // Error handling at Nodejs level
 process.on("uncaughtException", ex => {

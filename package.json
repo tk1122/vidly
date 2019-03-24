@@ -43,7 +43,8 @@
     "prebuild": "rimraf dist",
     "server": "node .",
     "build": "tsc",
-    "start": "npm run build && npm run server",
+    "migrate": "typeorm migration:run",
+    "start": "npm run build && npm run migrate && npm run server",
     "dev": "nodemon"
   }
 }

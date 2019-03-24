@@ -5,5 +5,4 @@ tmp/
 temp/
 .env
 .vscode
-*.log
 coverage/
